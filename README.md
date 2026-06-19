@@ -1,165 +1,249 @@
-# ⚙️ DevOpsGPT — AI DevOps Assistant
+# 🤖 SupportMate AI
 
-A modern, dark-themed, streaming chatbot for DevOps engineers. Built with **Python 3.12 + Flask + OpenAI**, vanilla **HTML/CSS/JS** on the frontend.
+### AI-Powered Customer Support Assistant
 
-Get fast, practical answers about **Linux, Docker, Kubernetes, Jenkins, Git, GitHub Actions, Terraform, AWS, Azure, CI/CD, monitoring,** and **troubleshooting**.
+SupportMate AI is a modern customer support chatbot designed to provide instant assistance for common customer service queries such as order tracking, billing issues, password resets, returns, and general support requests.
 
----
-
-## ✨ Features
-
-- 🌙 Modern dark theme, mobile responsive
-- 💬 Streaming chat (Server-Sent Events)
-- 🧠 Last-5-messages context window (token-efficient)
-- 💾 LocalStorage chat history persistence
-- 🗑️ Clear chat button
-- 📋 Copy response button
-- 🎨 Markdown rendering + syntax highlighting (highlight.js)
-- ⏳ Loading / typing indicator
-- 🛡️ DOMPurify XSS protection
-- ❤️ `/health` endpoint
-- 🔐 `.env` based configuration
+Built with Flask and a modern responsive frontend, SupportMate AI delivers real-time streaming responses through an elegant dark-themed interface that feels fast, interactive, and production-ready.
 
 ---
 
-## 🗂️ Project structure
+## 🚀 Live Features
 
+✅ Real-time AI responses
+
+✅ Modern glassmorphism UI
+
+✅ Streaming chat experience
+
+✅ Responsive design for desktop and mobile
+
+✅ Chat history persistence
+
+✅ Markdown rendering
+
+✅ Syntax highlighting for technical responses
+
+✅ Typing indicators
+
+✅ Copy response functionality
+
+✅ Clear conversation support
+
+✅ Health monitoring endpoint
+
+✅ Secure backend architecture
+
+---
+
+## 📸 Application Preview
+
+### Welcome Screen
+
+> Add your project screenshot here
+
+```text
+assets/supportmate-preview.png
 ```
-devops-gpt/
+
+---
+
+## ✨ Why SupportMate AI?
+
+Traditional support systems often force users to browse lengthy FAQ pages or wait for human agents.
+
+SupportMate AI provides:
+
+- Faster customer assistance
+- Reduced support workload
+- Better user experience
+- Instant responses
+- 24/7 availability
+- Consistent support quality
+
+---
+
+## 🛠 Tech Stack
+
+### Backend
+
+- Python
+- Flask
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+
+### UI & User Experience
+
+- Server-Sent Events (SSE)
+- Markdown Rendering
+- Syntax Highlighting
+- Local Storage Persistence
+- Responsive Design
+
+---
+
+## 📂 Project Structure
+
+```text
+supportmate-ai/
+│
 ├── app.py
 ├── requirements.txt
-├── .env.example
 ├── README.md
+│
 ├── templates/
 │   └── index.html
+│
 └── static/
     ├── style.css
-    └── script.js
+    ├── script.js
+    └── assets/
 ```
 
 ---
 
-## 🚀 Quick start
+## ⚙️ Installation
 
-### 1. Clone & enter the project
+### Clone the Repository
+
 ```bash
-git clone <your-repo-url> devops-gpt
-cd devops-gpt
+git clone https://github.com/yourusername/supportmate-ai.git
 ```
 
-### 2. Create a virtual environment (Python 3.12)
 ```bash
-python3.12 -m venv .venv
-source .venv/bin/activate          # Linux / macOS
-# .venv\Scripts\activate           # Windows
+cd supportmate-ai
 ```
 
-### 3. Install dependencies
+### Create Virtual Environment
+
+Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+Linux / macOS
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment
-```bash
-cp .env.example .env
-# Edit .env and set OPENAI_API_KEY
-```
+### Start the Application
 
-### 5. Run (development)
 ```bash
 python app.py
 ```
 
-Open <http://localhost:5000>.
-
-### 6. Run (production)
-```bash
-gunicorn -w 2 -k gthread --threads 8 -b 0.0.0.0:5000 app:app
-```
-
-> Streaming requires a worker that supports request streaming. `gthread` works well; for `gunicorn` + nginx, disable proxy buffering (`proxy_buffering off;`).
-
 ---
 
-## 🔧 Configuration (.env)
+## 🌐 Access the Application
 
-| Variable             | Default        | Purpose                                  |
-| -------------------- | -------------- | ---------------------------------------- |
-| `OPENAI_API_KEY`     | _(required)_   | Your OpenAI API key                      |
-| `OPENAI_MODEL`       | `gpt-4.1-mini` | Chat model                               |
-| `OPENAI_TEMPERATURE` | `0.2`          | Response randomness                      |
-| `OPENAI_MAX_TOKENS`  | `400`          | Max tokens in a single answer            |
-| `MAX_HISTORY`        | `5`            | Last N messages sent to the model        |
-| `FLASK_ENV`          | `production`   | `development` enables debug mode         |
-| `HOST`               | `0.0.0.0`      | Bind host                                |
-| `PORT`               | `5000`         | Bind port                                |
+Open your browser and navigate to:
 
----
-
-## 🔌 API
-
-### `POST /api/chat`
-Streams the response as Server-Sent Events.
-
-**Request body**
-```json
-{
-  "message": "How do I list all pods in a namespace?",
-  "history": [
-    { "role": "user", "content": "..." },
-    { "role": "assistant", "content": "..." }
-  ]
-}
-```
-
-**Stream events**
-```
-data: {"token": "kubectl"}
-data: {"token": " get"}
-data: {"token": " pods"}
-data: {"done": true}
-```
-
-### `GET /health`
-```json
-{
-  "status": "ok",
-  "model": "gpt-4.1-mini",
-  "api_key_configured": true
-}
+```text
+http://localhost:5000
 ```
 
 ---
 
-## 🛡️ Security notes
+## 💬 Example Support Requests
 
-- API key is loaded from `.env` and **never exposed** to the browser.
-- Input is length-limited (4 KB) and JSON-validated.
-- Request body capped at 1 MB.
-- All rendered Markdown is sanitized with **DOMPurify** to prevent XSS.
-- Run behind HTTPS in production (nginx / Caddy / Cloudflare).
+### Order Tracking
+
+```text
+Where is my order?
+```
+
+### Billing Support
+
+```text
+Why was I charged twice?
+```
+
+### Password Assistance
+
+```text
+I forgot my password.
+```
+
+### Returns
+
+```text
+How can I return a product?
+```
 
 ---
 
-## 🐳 Docker (optional)
+## 🔄 System Workflow
 
-```dockerfile
-FROM python:3.12-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["gunicorn", "-w", "2", "-k", "gthread", "--threads", "8", "-b", "0.0.0.0:5000", "app:app"]
-```
-
-```bash
-docker build -t devops-gpt .
-docker run -p 5000:5000 --env-file .env devops-gpt
+```text
+User
+  │
+  ▼
+Frontend Chat Interface
+  │
+  ▼
+Flask Backend
+  │
+  ▼
+AI Processing Layer
+  │
+  ▼
+Streaming Response
+  │
+  ▼
+User Interface
 ```
 
 ---
 
-## 📜 License
 
-MIT — use it, fork it, ship it. 🚀
+## 🎯 Future Improvements
+
+- User Authentication
+- Conversation Analytics
+- CRM Integration
+- Ticket Generation
+- Multi-Language Support
+- Knowledge Base Integration
+- Human Agent Escalation
+- Voice Support
+- Admin Dashboard
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Push your branch
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+Licensed under the MIT License.
+
+---
+
+## ⭐ If you found this project useful
+
+Consider giving it a star on GitHub.
+
+It helps others discover the project and motivates future development.
