@@ -36,18 +36,6 @@ Built with Flask and a modern responsive frontend, SupportMate AI delivers real-
 
 ---
 
-## 📸 Application Preview
-
-### Welcome Screen
-
-> Add your project screenshot here
-
-```text
-assets/supportmate-preview.png
-```
-
----
-
 ## ✨ Why SupportMate AI?
 
 Traditional support systems often force users to browse lengthy FAQ pages or wait for human agents.
